@@ -58,10 +58,10 @@ class FileHelper
             $urlimg = $file->path;
 
             // Kiểm tra xem có phải đường dẫn Cloudflare Image hay không
-//            if (filter_var($urlimg, FILTER_VALIDATE_URL) &&
-//                preg_match('/^https:\/\/imagedelivery\.net\/[A-Za-z0-9_-]+\/[A-Za-z0-9-]+\/(public|private)$/', $urlimg)) {
-//                $instance->cloudflareService->deleteImage($urlimg);
-//            }
+            if (filter_var($urlimg, FILTER_VALIDATE_URL) &&
+                preg_match('/^https:\/\/imagedelivery\.net\/[A-Za-z0-9_-]+\/[A-Za-z0-9-]+\/(public|private)$/', $urlimg)) {
+                $instance->cloudflareService->deleteImage($urlimg);
+            }
         }
         if (!is_array($file->id)) {
             $fileIds = [$file->id];
