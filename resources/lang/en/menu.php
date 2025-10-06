@@ -1,0 +1,20 @@
+<?php
+return [
+    'home'       => 'Home',
+    'roomClass'       => 'Room Class',
+    'experience' => 'Experience',
+    'cuisine'    => 'Cuisine',
+    'poolbar'    => 'Pool & Bar',
+    'spa'    => 'Orchid Spa',
+    'vacationPackage'    => 'Vacation Package',
+    'endDow'    => 'Endow',
+    'faq'    => 'FAQs',
+    'about'    => 'About AsiaTropical',
+    'lang'    => 'Language',
+    'contact'    => 'Contact Us',
+    'media'    => 'Media Center',
+    'privacy'    => 'Privacy Policy',
+    'term'    => 'Terms and Conditions',
+    'blog'    => 'Blog',
+    'howtoget'    => 'How To Get There',
+];

@@ -1,0 +1,20 @@
+<?php
+return [
+    'home'       => 'Trang chủ',
+    'roomClass'       => 'Hạng phòng',
+    'experience' => 'Trải nghiệm',
+    'cuisine'    => 'Ẩm thực',
+    'poolbar'    => 'Pool & Bar',
+    'spa'    => 'Orchid Spa',
+    'vacationPackage'    => 'Gói nghỉ dưỡng',
+    'endDow'    => 'Ưu đãi',
+    'faq'    => 'Câu hỏi thường gặp',
+    'about'    => 'Về AsiaTropical',
+    'lang'    => 'Ngôn ngữ',
+    'contact'    => 'Liên hệ',
+    'media'    => 'Tư liệu truyền thông',
+    'privacy'    => 'Chính sách bảo mật',
+    'term'    => 'Điều khoản và điều kiện',
+    'blog'    => 'Blog',
+    'howtoget'    => 'Di chuyển đến Asia Tropical',
+];

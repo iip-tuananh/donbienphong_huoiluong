@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Model\Admin\Block;
+use App\Model\Admin\BlockGallery;
+use App\Model\Admin\CloudPool;
+use App\Model\Admin\Moving;
+use Illuminate\Http\Request;
+use App\Model\Admin\Moving as ThisModel;
+use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\DataTables;
+use Validator;
+use \stdClass;
+use Response;
+use Rap2hpoutre\FastExcel\FastExcel;
+use PDF;
+use App\Http\Controllers\Controller;
+use \Carbon\Carbon;
+use Illuminate\Validation\Rule;
+use App\Helpers\FileHelper;
+use DB;
+
+class MovingController extends Controller
+{
+    protected $view = 'admin.movings';
+    protected $route = 'moving';
+
+    public function index()
+    {
+        return view($this->view.'.index');
+    }
+
+    public function create()
+    {
+        return view($this->view.'.create');
+    }
+
+    public function edit(Request $request)
+    {
+        $object = ThisModel::getDataForEdit(1);
+
+        return view($this->view.'.edit', compact('object'));
+    }
+
+    public function update(Request $request)
+    {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required',
+                'title_eng' => 'required',
+                'body' => 'required',
+                'body_eng' => 'required',
+                'image' => 'nullable|file|mimes:jpg,jpeg,png|max:10000',
+            ]
+        );
+
+        $json = new stdClass();
+
+        if ($validate->fails()) {
+            $json->success = false;
+            $json->errors = $validate->errors();
+            $json->message = "Thao tác thất bại!";
+            return Response::json($json);
+        }
+
+
+        DB::beginTransaction();
+        try {
+            $object = ThisModel::findOrFail(1);
+
+            if(!$object) $object = new Moving();
+
+            $object->title = $request->title;
+            $object->title_eng = $request->title_eng;
+            $object->body = $request->body;
+            $object->body_eng = $request->body_eng;
+            $object->save();
+
+            if ($request->image) {
+                if($object->image) {
+                    FileHelper::deleteFileFromCloudflare($object->image, $object->id, ThisModel::class, 'image');
+                }
+                FileHelper::uploadFileToCloudflare($request->image, $object->id, ThisModel::class, 'image');
+            }
+
+            DB::commit();
+            $json->success = true;
+            $json->message = "Thao tác thành công!";
+            return Response::json($json);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            throw new Exception($e);
+        }
+    }
+
+    public function delete($id)
+    {
+        $object = ThisModel::findOrFail($id);
+        if (!$object->canDelete()) {
+            $message = array(
+                "message" => "Không thể xóa!",
+                "alert-type" => "warning"
+            );
+        } else {
+            if($object->image) {
+                FileHelper::deleteFileFromCloudflare($object->image, $object->id, ThisModel::class, 'image');
+            }
+            $object->delete();
+            $message = array(
+                "message" => "Thao tác thành công!",
+                "alert-type" => "success"
+            );
+        }
+
+
+        return redirect()->route($this->route.'.index')->with($message);
+    }
+
+    // Xuất Excel
+    public function exportExcel() {
+        return (new FastExcel(ThisModel::all()))->download('danh_sach_vat_tu.xlsx', function ($object) {
+            return [
+                'ID' => $object->id,
+                'Tên' => $object->name,
+                'Trạng thái' => $object->status == 0 ? 'Khóa' : 'Hoạt động',
+            ];
+        });
+    }
+
+    public function getData(Request $request, $id) {
+        $json = new stdclass();
+        $json->success = true;
+        $json->data = ThisModel::getDataForEdit($id);
+        return Response::json($json);
+    }
+
+    public function addToCategorySpecial(Request $request) {
+        $post = Post::query()->find($request->post_id);
+
+        $post->category_specials()->sync($request->category_special_ids);
+
+        return Response::json(['success' => true, 'message' => 'Thêm bài viết vào danh mục đặc biệt thành công']);
+    }
+}

@@ -1,0 +1,26 @@
+ul.pagination {
+    border: solid 1px #CCCCCC;
+    border-radius: 5px;
+}
+
+ul.pagination li.pagination-page {
+    border-right: solid 1px #CCCCCC;
+}
+
+li.pagination-page.ng-scope.active {
+    background-color: #28a745;
+}
+
+li.pagination-page.ng-scope.active a {
+    color: #FFF;
+    font-weight: bold;
+}
+
+ul.pagination li.pagination-prev, ul.pagination li.pagination-first, ul.pagination li.pagination-next {
+    border-right: solid 1px #CCCCCC;
+}
+
+ul.pagination li a {
+    margin: 5px 10px;
+    display: inline-block;
+}

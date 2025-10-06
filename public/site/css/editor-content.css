@@ -1,0 +1,150 @@
+
+/* Reset nhẹ trong vùng nội dung từ CKEditor */
+.editor-content, .editor-content * {
+    /*font-family: unset !important;*/
+    font-style: unset !important;
+    font-weight: unset !important;
+    /*color: unset !important;*/
+    text-decoration: unset !important;
+    margin: unset !important;
+    /*padding: unset !important;*/
+    border: unset !important;
+    outline: unset !important;
+    vertical-align: unset !important;
+}
+
+.editor-content {
+    text-align: left; /* Reset mặc định */
+    line-height: 1.6
+}
+
+.editor-content * {
+    text-align: inherit;
+}
+
+/* Văn bản cơ bản */
+.editor-content em, .editor-content i {
+    font-style: italic !important;
+}
+
+.editor-content strong, .editor-content b {
+    font-weight: bold !important;
+}
+
+.editor-content u {
+    text-decoration: underline !important;
+}
+
+.editor-content s, .editor-content strike {
+    text-decoration: line-through !important;
+}
+
+.editor-content sub {
+    vertical-align: sub !important;
+    font-size: smaller !important;
+}
+
+.editor-content sup {
+    vertical-align: super !important;
+    font-size: smaller !important;
+}
+
+/* Tiêu đề */
+.editor-content h1,
+.editor-content h2,
+.editor-content h3,
+.editor-content h4,
+.editor-content h5,
+.editor-content h6 {
+    font-weight: bold !important;
+    margin: 0.5em 0 !important;
+}
+
+/* Đoạn văn */
+.editor-content p {
+    margin: 0.5em 0 !important;
+}
+
+/* Danh sách */
+.editor-content ul,
+.editor-content ol {
+    padding-left: 2em !important;
+    margin: 0.5em 0 !important;
+}
+
+.editor-content li {
+    margin-bottom: 0.3em !important;
+}
+
+/* Trích dẫn */
+.editor-content blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1em;
+    color: #666;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+/* Liên kết */
+.editor-content a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* Hình ảnh */
+.editor-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Bảng biểu */
+.editor-content table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.editor-content table th,
+.editor-content table td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+    text-align: left;
+}
+
+/* Dòng kẻ ngang */
+.editor-content hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+}
+
+/* Định dạng mã */
+.editor-content code {
+    font-family: monospace;
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.editor-content pre {
+    background: #f4f4f4;
+    padding: 1em;
+    overflow-x: auto;
+    font-family: monospace;
+}
+
+/* Ký hiệu đặc biệt */
+.editor-content abbr {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+.editor-content mark {
+    background: yellow;
+    color: black;
+}
+
+/* Bảo vệ nội dung tránh bị ảnh hưởng bởi CSS toàn cục */
+.editor-content {
+    isolation: isolate;
+}
